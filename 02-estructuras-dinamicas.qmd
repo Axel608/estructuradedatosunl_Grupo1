@@ -61,6 +61,24 @@ print(mi_lista_r)
 # Eliminar un elemento
 mi_lista_r$activa <- NULL
 print(mi_lista_r)
+
+## Características de las listas en R
+
+Las listas en R son estructuras extremadamente flexibles porque pueden almacenar distintos tipos de datos al mismo tiempo. Por ejemplo, una lista puede contener números, cadenas de texto, vectores e incluso otras listas.
+
+Esto convierte a las listas en una herramienta fundamental para la simulación de estructuras dinámicas más avanzadas.
+
+### Ejemplo adicional
+
+```{.r}
+datos_estudiante <- list(
+  nombre = "Joel",
+  edad = 20,
+  notas = c(9, 8, 10),
+  aprobado = TRUE
+)
+
+print(datos_estudiante)
 ```
 
 ## Listas Simples (Singly Linked Lists)
@@ -108,7 +126,7 @@ SinglyLinkedList <- R6::R6Class(
     
     # Añadir un nodo al principio de la lista
     prepend = function(valor) {
-      new_node <- crear_nodo_simple(valor, self$head)
+      new_node <- crear_nodo_simple(valor, self$head)     
       self$head <- new_node
       invisible(self)
     },
