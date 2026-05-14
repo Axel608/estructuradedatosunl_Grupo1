@@ -574,6 +574,8 @@ cll$print() # La lista está vacía
 
 Una Pila es una estructura de datos lineal que sigue el principio "LIFO" (Last-In, First-Out), es decir, el último elemento añadido es el primero en ser eliminado. Piensa en una pila de platos: solo puedes añadir un plato encima y solo puedes quitar el plato de más arriba.
 
+Una pila (stack en inglés) es una lista ordinal o estructura de datos en la que el modo de acceso a sus elementos es de tipo LIFO (del inglés Last In First Out, último en entrar, primero en salir) que permite almacenar y recuperar datos. Se aplica en multitud de ocasiones en informática debido a su simplicidad y ordenación implícita en la propia estructura. 
+
 Las operaciones principales de una pila son:
 
 *   **Push**: Añadir un elemento a la parte superior de la pila.
@@ -583,6 +585,8 @@ Las operaciones principales de una pila son:
 *   **Size**: Devolver el número de elementos en la pila.
 
 En R, podemos implementar una pila de manera muy eficiente usando un `vector` o una `list` estándar, aprovechando que las operaciones de añadir/eliminar al final de un vector/lista son muy rápidas.
+
+La seguridad a la hora de desarrollar software usando estructuras de datos de tipo pila es un factor a tener en cuenta debido a ciertas vulnerabilidad que un uso incorrecto de éstas puede originar en la seguridad de nuestro software o en la seguridad del propio sistema que lo ejecuta. Por ejemplo, algunos lenguajes de programación usan una misma pila para almacenar los datos para un procedimientos y el link que permite retornar a su invocador. Ésto significa que el programa introduce y extrae los datos de la misma pila en la que se encuentra información crítica con las direcciones de retorno de las llamadas a procedimiento, supongamos que al introducir datos en la pila lo hacemos en una posición errónea de manera que introducimos una datos de mayor tamaño al soportado por la pila corrompiendo así las llamadas a procedimientos provocariamos un fallo en nuestro programa.
 
 ```{.r}
 # Clase Stack
@@ -678,6 +682,58 @@ mi_pila$print()
 
 Una Cola es una estructura de datos lineal que sigue el principio "FIFO" (First-In, First-Out), es decir, el primer elemento añadido es el primero en ser eliminado. Piensa en una cola de personas en un supermercado: la primera persona en llegar es la primera en ser atendida.
 
+Una cola es una estructura de datos la cual almacena elementos en una lista y permite acceder a los datos por uno de los dos extremos de la lista.
+Un elemento se inserta en la cola (parte final) de la lista y se suprime o elimina por la frente (parte inicial,
+cabeza) de la lista.
+
+Los elementos se eliminan (se quitan) de la cola en el mismo orden en que se almacenan y, por consiguiente, una cola es una estructura de tipo FIFO (first-in-first-out, primero en entrar, Primero en salir o bien primero en llegar/primero en ser servido).
+Un ejemplo de esto son los servicion en los restaurantes o las filas en el banco.
+
+```{.r}
+ #En el siguiente ejemplo se muesrta una
+  # Crear una cola vacía
+  cola <- list()
+  
+  # Enqueue: agregar elementos
+  cola <- append(cola, "Cliente 1")
+  cola <- append(cola, "Cliente 2")
+  cola <- append(cola, "Cliente 3")
+  
+  print(cola)
+  # [[1]]
+  # [1] "Cliente 1"
+  # [[2]]
+  # [1] "Cliente 2"
+  # [[3]]
+  # [1] "Cliente 3"
+  
+  # Front: ver el primer elemento
+  print(cola[[1]])
+  # "Cliente 1"
+
+  # Dequeue: eliminar el primer elemento
+  atendido <- cola[[1]]
+  cola <- cola[-1]
+
+ print(paste("Atendido:", atendido))
+ # "Atendido: Cliente 1"
+
+ # Mostrar cola actual
+ print(cola)
+ # [[1]]
+ # [1] "Cliente 2"
+ # [[2]]
+ # [1] "Cliente 3"
+
+ # isEmpty: verificar si está vacía
+ print(length(cola) == 0)
+ # FALSE
+
+ # Size: tamaño de la cola
+print(length(cola))
+ # 2
+```
+---
 Las operaciones principales de una cola son:
 
 *   **Enqueue**: Añadir un elemento al final de la cola.
