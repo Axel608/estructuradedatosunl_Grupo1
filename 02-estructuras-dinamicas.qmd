@@ -83,6 +83,18 @@ print(datos_estudiante)
 
 ## Listas Simples (Singly Linked Lists)
 
+Imagina un tren donde cada vagón contiene pasajeros y además conoce cuál es el siguiente vagón del recorrido.
+
+```{text}
+[Vagón 1] -> [Vagón 2] -> [Vagón 3]
+```
+
+Cada vagón almacena información y una referencia al siguiente vagón.
+
+Si queremos agregar un nuevo vagón entre dos existentes, únicamente se modifican las conexiones necesarias sin reconstruir todo el tren.
+
+Esta es la misma idea utilizada en una lista enlazada, donde cada nodo conoce cuál es el siguiente elemento de la estructura.
+
 Una lista simplemente enlazada es la forma más básica de lista enlazada. Cada nodo tiene un valor y un puntero al siguiente nodo. El último nodo apunta a `NULL` (o `NA` en nuestra simulación en R). Solo se puede recorrer hacia adelante.
 
 **Estructura de un nodo:**
@@ -130,6 +142,54 @@ SinglyLinkedList <- R6::R6Class(
       self$head <- new_node
       invisible(self)
     },
+    
+    # Obtener elemento por posición
+get_at = function(index) {
+
+  current <- self$head
+  contador <- 0
+
+  while (!is.null(current)) {
+
+    if (contador == index) {
+      return(current$value)
+    }
+
+    current <- current$next_node
+    contador <- contador + 1
+  }
+
+  return(NULL)
+},
+
+ # Insertar en una posición específica
+ insert_at = function(index, valor) {
+
+  if (index == 0) {
+    self$prepend(valor)
+    return(invisible(self))
+  }
+
+  new_node <- crear_nodo_simple(valor)
+
+  current <- self$head
+  contador <- 0
+
+  while (!is.null(current) && contador < index - 1) {
+
+    current <- current$next_node
+    contador <- contador + 1
+  }
+
+  if (is.null(current)) {
+    stop("Índice fuera de rango")
+  }
+
+  new_node$next_node <- current$next_node
+  current$next_node <- new_node
+
+  invisible(self)
+  },
     
     # Imprimir la lista
     print = function() {
@@ -203,6 +263,33 @@ sll$delete("Cereza") # Eliminar el último
 sll$print()
 
 sll$delete("Manzana") # Eliminar el último que queda
+sll$print()
+
+ # Ejemplo usando la analogía del tren
+
+sll <- SinglyLinkedList$new()
+
+sll$append("Vagón 1")
+sll$append("Vagón 2")
+sll$append("Vagón 4")
+
+sll$print()
+
+ ### Extensión: Inserción de vagones en posiciones específicas
+
+La lista enlazada fue ampliada para permitir insertar elementos en posiciones específicas y acceder a elementos mediante índices.
+
+Para explicar esta mejora se utilizará la analogía de un tren, donde cada nodo representa un vagón conectado al siguiente.
+ 
+ # Insertar un nuevo vagón
+sll$insert_at(2, "Vagón 3")
+
+sll$print()
+
+cat("Vagón en posición 1:", sll$get_at(1), "\n")
+
+sll$delete("Vagón 2")
+
 sll$print()
 ```
 
