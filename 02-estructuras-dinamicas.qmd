@@ -843,6 +843,29 @@ Las estructuras dinámicas son utilizadas diariamente en sistemas informáticos 
 * Sistemas operativos usan listas circulares para administrar procesos.
 * Editores de texto usan listas dobles para deshacer y rehacer cambios.
 
+---
+
+# Comparación de Complejidad
+
+La eficiencia de una estructura de datos puede analizarse mediante la notación Big O, la cual permite estimar el tiempo que tarda una operación dependiendo de la cantidad de elementos almacenados.
+
+En las estructuras dinámicas, algunas operaciones son más rápidas que otras según la forma en que se organizan los datos.
+
+| Estructura | Búsqueda | Inserción | Eliminación |
+|---|---|---|---|
+| Lista Simple | O(n) | O(1) | O(1) |
+| Lista Doble | O(n) | O(1) | O(1) |
+| Pila | O(1) | O(1) | O(1) |
+| Cola | O(1) | O(1) | O(1) |
+
+Donde:
+
+* **O(1)** representa un tiempo constante.
+* **O(n)** representa un tiempo que aumenta según el número de elementos.
+
+Las listas enlazadas requieren recorrer nodos para encontrar un elemento, mientras que las pilas y colas realizan operaciones en posiciones específicas, lo que mejora su rendimiento.
+
+---
 
 # Conclusión
 
