@@ -8,7 +8,6 @@ Las estructuras dinámicas son formas especiales de organizar datos que tienen l
 Para entenderlo mejor, podemos explicar esto con Pokémon. Las listas enlazadas funcionan como una cadena de Pokémon donde cada uno sabe quién viene después. Por ejemplo: Pikachu → Charmander → Squirtle → Bulbasaur. Cada Pokémon tiene información sobre sí mismo y además se guía al siguiente de la fila. En una lista doblemente enlazada, los Pokémon también saben quién está antes y quién está después, algo así como: Pichu ⇄ Pikachu ⇄ Raichu. Incluso existen listas circulares, donde el último Pokémon vuelve a conectarse con el primero en este caso son las evoluciones, formando un ciclo infinito, como en un torneo Pokémon que nunca termina.
 Otra estructura importante son las pilas o Stacks, que funcionan con la regla “el último en entrar es el primero en salir” (LIFO). Esto se puede comparar con una mochila de Pokéballs: si primero guardas una Pokéball roja, luego una Superball y después una ultraball, la primera que sacarás será la Ultraball porque fue la última en entrar. Finalmente, están las colas o Queues, que funcionan, al contrario, siguiendo la regla “el primero en entrar es el primero en salir” (FIFO). Un ejemplo sencillo sería la fila de entrenadores esperando en un Centro Pokémon: si Lapo llega primero, luego Anderson y después Jorge, el primero en ser atendido será Lapo. Gracias a estas estructuras dinámicas, los programas pueden manejar información de manera más flexible, ordenada y eficiente dependiendo de la situación.
 
----
 
 # Listas Enlazadas
 
@@ -25,8 +24,15 @@ Las `list` de R son extremadamente flexibles y, en muchos escenarios, pueden ser
 :::
 
 Crear y acceder a elementos de una lista en R es sencillo:
+## Características de las listas en R
 
-```{.r}
+Las listas en R son estructuras extremadamente flexibles porque pueden almacenar distintos tipos de datos al mismo tiempo. Por ejemplo, una lista puede contener números, cadenas de texto, vectores e incluso otras listas.
+
+Esto convierte a las listas en una herramienta fundamental para la simulación de estructuras dinámicas más avanzadas.
+
+### Ejemplo en R
+
+```{r}
 # Crear una lista en R
 mi_lista_r <- list(
   nombre = "Alice",
@@ -53,16 +59,9 @@ print(mi_lista_r)
 # Eliminar un elemento
 mi_lista_r$activa <- NULL
 print(mi_lista_r)
+```
 
-## Características de las listas en R
-
-Las listas en R son estructuras extremadamente flexibles porque pueden almacenar distintos tipos de datos al mismo tiempo. Por ejemplo, una lista puede contener números, cadenas de texto, vectores e incluso otras listas.
-
-Esto convierte a las listas en una herramienta fundamental para la simulación de estructuras dinámicas más avanzadas.
-
-### Ejemplo adicional
-
-```{.r}
+```{r}
 datos_estudiante <- list(
   nombre = "Joel",
   edad = 20,
@@ -77,7 +76,7 @@ print(datos_estudiante)
 
 Imagina un tren donde cada vagón contiene pasajeros y además conoce cuál es el siguiente vagón del recorrido.
 
-```{text}
+```
 [Vagón 1] -> [Vagón 2] -> [Vagón 3]
 ```
 
@@ -97,7 +96,7 @@ Una lista simplemente enlazada es la forma más básica de lista enlazada. Cada 
 
 Vamos a simular esto en R:
 
-```{.r}
+```{r}
 # Función para crear un nuevo nodo
 crear_nodo_simple <- function(valor, siguiente = NULL) {
   list(value = valor, next_node = siguiente)
@@ -232,8 +231,9 @@ get_at = function(index) {
     }
   )
 )
-
+```
 # Ejemplo de uso de la lista simple
+```{R}
 sll <- SinglyLinkedList$new()
 
 sll$append("Manzana")$append("Banana")$append("Cereza")
@@ -256,35 +256,53 @@ sll$print()
 
 sll$delete("Manzana") # Eliminar el último que queda
 sll$print()
+```
 
- # Ejemplo usando la analogía del tren
 
+# Ejemplo usando la analogía del tren
+```{R}
 sll <- SinglyLinkedList$new()
 
-sll$append("Vagón 1")
-sll$append("Vagón 2")
-sll$append("Vagón 4")
+sll$append("Vagon 1")
+sll$append("Vagon 2")
+sll$append("Vagon 4")
 
 sll$print()
-
- ### Extensión: Inserción de vagones en posiciones específicas
+```
+ 
+# Extensión: Inserción de vagones en posiciones específicas
 
 La lista enlazada fue ampliada para permitir insertar elementos en posiciones específicas y acceder a elementos mediante índices.
 
 Para explicar esta mejora se utilizará la analogía de un tren, donde cada nodo representa un vagón conectado al siguiente.
- 
- # Insertar un nuevo vagón
-sll$insert_at(2, "Vagón 3")
 
+```{r}
+# Crear y preparar la lista
+sll <- SinglyLinkedList$new()
+
+sll$append("Vagon 1")
+sll$append("Vagon 2")
+
+# Insertar de forma segura
+tryCatch({
+  sll$insert_at(2, "Vagon 3")
+}, error = function(e) {
+  message("No se pudo insertar en posicion 2: ", e$message)
+  sll$append("Vagon 3")
+})
+
+# Mostrar lista
 sll$print()
 
-cat("Vagón en posición 1:", sll$get_at(1), "\n")
+# Mostrar elemento en posicion 1
+print(paste("Vagon en posicion 1:", sll$get_at(1)))
 
-sll$delete("Vagón 2")
+# Eliminar un vagon
+sll$delete("Vagon 2")
 
+# Mostrar lista final
 sll$print()
 ```
-
 ::: callout-note
 **Nota sobre la simulación en R:** Al crear un nodo como `list(value = valor, next_node = siguiente)`, el `siguiente` es una referencia *copia* del objeto `list` completo. R gestiona la memoria y las referencias de objetos de manera diferente a lenguajes como C, donde un puntero es una dirección de memoria. Sin embargo, para entender el comportamiento lógico de las listas enlazadas, esta simulación es muy efectiva. Para grandes volúmenes de datos y operaciones frecuentes, las `list` nativas de R o estructuras más optimizadas podrían ser preferibles por rendimiento.
 :::
@@ -299,7 +317,7 @@ Una lista doblemente enlazada mejora la lista simple añadiendo un puntero al no
 NULL <- [puntero_anterior | dato | puntero_siguiente] <-> ... <-> [puntero_anterior | dato | puntero_siguiente] -> NULL
 ```
 
-```{.r}
+```{r}
 # Función para crear un nuevo nodo doble
 crear_nodo_doble <- function(valor, anterior = NULL, siguiente = NULL) {
   list(value = valor, prev_node = anterior, next_node = siguiente)
@@ -409,8 +427,10 @@ DoublyLinkedList <- R6::R6Class(
     }
   )
 )
-
+```
 # Ejemplo de uso de la lista doble
+
+```{r}
 dll <- DoublyLinkedList$new()
 
 dll$append("Uno")$append("Dos")$append("Tres")
@@ -424,16 +444,18 @@ dll$delete("Dos")
 dll$print_forward()
 dll$print_backward()
 
-dll$delete("Cero") # Eliminar la cabeza
+dll$delete("Cero")
 dll$print_forward()
 
-dll$delete("Tres") # Eliminar la cola
+dll$delete("Tres")
 dll$print_forward()
 
-dll$delete("Uno") # Eliminar el último
+dll$delete("Uno")
 dll$print_forward()
-dll$print_backward() # La lista está vacía
+dll$print_backward()
 ```
+
+
 
 ## Listas Circulares (Circular Linked Lists)
 
@@ -447,37 +469,64 @@ Una lista circular es una lista enlazada donde el último nodo apunta al primer 
    |_____________________________________________________________________|
 ```
 
-```{.r}
+```{r}
 # Clase CLL (Circular Linked List)
 CircularLinkedList <- R6::R6Class(
   "CircularLinkedList",
   public = list(
+    
     head = NULL,
     
     initialize = function() {
       self$head <- NULL
     },
     
-    # Añadir un nodo al final (mantiene el orden circular)
+    # Añadir nodo al final
     append = function(valor) {
-      new_node <- crear_nodo_simple(valor) # Usamos el nodo simple para la base
+      
+      new_node <- crear_nodo_simple(valor)
+      
+      # Lista vacía
       if (is.null(self$head)) {
+        
         self$head <- new_node
-        new_node$next_node <- self$head # Apunta a sí mismo para formar el círculo
+        new_node$next_node <- self$head
+        
       } else {
+        
         current <- self$head
-        # Recorrer hasta el nodo justo antes de la cabeza (el actual "final")
-        while (!identical(current$next_node, self$head)) {
+        
+        max_iter <- 100
+        iter <- 0
+        
+        # Buscar último nodo
+        while (
+          !is.null(current$next_node) &&
+          current$next_node$value != self$head$value
+        ) {
+          
           current <- current$next_node
+          
+          iter <- iter + 1
+          
+          if (iter > max_iter) {
+            stop("Loop infinito detectado en append()")
+          }
         }
+        
+        # Conectar nuevo nodo
         current$next_node <- new_node
-        new_node$next_node <- self$head # El nuevo nodo apunta a la cabeza
+        
+        # Nuevo nodo apunta a la cabeza
+        new_node$next_node <- self$head
       }
+      
       invisible(self)
     },
     
-    # Imprimir la lista (recorre una vez el círculo)
+    # Imprimir lista
     print = function() {
+      
       if (is.null(self$head)) {
         cat("Lista Circular: Vacía\n")
         return(invisible(self))
@@ -485,24 +534,57 @@ CircularLinkedList <- R6::R6Class(
       
       nodes_str <- c()
       current <- self$head
+      
+      max_iter <- 100
+      iter <- 0
+      
       repeat {
-        nodes_str <- c(nodes_str, as.character(current$value))
+        
+        nodes_str <- c(
+          nodes_str,
+          as.character(current$value)
+        )
+        
         current <- current$next_node
-        if (identical(current, self$head)) { # Detener cuando volvemos a la cabeza
+        
+        iter <- iter + 1
+        
+        # Volvió al inicio
+        if (current$value == self$head$value) {
+          break
+        }
+        
+        if (iter > max_iter) {
+          cat("Error: posible ciclo infinito\n")
           break
         }
       }
-      cat("Lista Circular: ", paste(nodes_str, collapse = " -> "), " -> (vuelve a ", nodes_str[1], ")\n")
+      
+      cat(
+        "Lista Circular: ",
+        paste(nodes_str, collapse = " -> "),
+        " -> (vuelve a ",
+        nodes_str[1],
+        ")\n"
+      )
+      
+      invisible(self)
     },
     
-    # Eliminar un nodo por valor
+    # Eliminar nodo
     delete = function(valor) {
+      
+      # Lista vacía
       if (is.null(self$head)) {
         return(invisible(self))
       }
       
-      # Si la lista tiene un solo nodo
-      if (identical(self$head$next_node, self$head) && identical(self$head$value, valor)) {
+      # Un solo nodo
+      if (
+        !is.null(self$head$next_node) &&
+        self$head$next_node$value == self$head$value &&
+        self$head$value == valor
+      ) {
         self$head <- NULL
         return(invisible(self))
       }
@@ -510,39 +592,74 @@ CircularLinkedList <- R6::R6Class(
       current <- self$head
       prev <- NULL
       
-      # Buscar el nodo a eliminar
+      max_iter <- 100
+      iter <- 0
+      
+      # Buscar nodo
       repeat {
-        if (identical(current$value, valor)) {
-          break # Se encontró el nodo
+        
+        if (current$value == valor) {
+          break
         }
+        
         prev <- current
         current <- current$next_node
-        if (identical(current, self$head)) { # Se recorrió toda la lista y no se encontró
+        
+        iter <- iter + 1
+        
+        # No encontrado
+        if (current$value == self$head$value) {
           return(invisible(self))
+        }
+        
+        if (iter > max_iter) {
+          stop("Loop infinito detectado en delete()")
         }
       }
       
-      # Si el nodo a eliminar es la cabeza
-      if (identical(current, self$head)) {
-        # Encontrar el último nodo para actualizar su puntero
+      # Eliminar cabeza
+      if (current$value == self$head$value) {
+        
         temp_tail <- self$head
-        while (!identical(temp_tail$next_node, self$head)) {
+        
+        iter <- 0
+        
+        while (
+          !is.null(temp_tail$next_node) &&
+          temp_tail$next_node$value != self$head$value
+        ) {
+          
           temp_tail <- temp_tail$next_node
+          
+          iter <- iter + 1
+          
+          if (iter > max_iter) {
+            stop("Loop infinito detectado buscando tail")
+          }
         }
+        
         self$head <- self$head$next_node
         temp_tail$next_node <- self$head
-      } else { # El nodo a eliminar no es la cabeza
+        
+      } else {
+        
+        # Nodo intermedio/final
         prev$next_node <- current$next_node
       }
+      
       invisible(self)
     }
   )
 )
-
+```
 # Ejemplo de uso de la lista circular
+```{r}
 cll <- CircularLinkedList$new()
 
-cll$append("Alfa")$append("Beta")$append("Gamma")
+cll$append("Alfa")
+cll$append("Beta")
+cll$append("Gamma")
+
 cll$print()
 
 cll$delete("Beta")
@@ -551,16 +668,18 @@ cll$print()
 cll$delete("Alfa") # Eliminar la cabeza
 cll$print()
 
-cll$delete("Gamma") # Eliminar el último que queda
+cll$delete("Gamma") # Eliminar el ultimo que queda
 cll$print()
 
-cll$append("Único")
+cll$append("unico")
 cll$print()
-cll$delete("Único")
-cll$print() # La lista está vacía
+
+cll$delete("unico")
+cll$print() # La lista esta vacia
+
+rm(cll)
+gc()
 ```
-
----
 
 # Pilas (Stacks)
 
@@ -580,7 +699,7 @@ En R, podemos implementar una pila de manera muy eficiente usando un `vector` o 
 
 La seguridad a la hora de desarrollar software usando estructuras de datos de tipo pila es un factor a tener en cuenta debido a ciertas vulnerabilidad que un uso incorrecto de éstas puede originar en la seguridad de nuestro software o en la seguridad del propio sistema que lo ejecuta. Por ejemplo, algunos lenguajes de programación usan una misma pila para almacenar los datos para un procedimientos y el link que permite retornar a su invocador. Ésto significa que el programa introduce y extrae los datos de la misma pila en la que se encuentra información crítica con las direcciones de retorno de las llamadas a procedimiento, supongamos que al introducir datos en la pila lo hacemos en una posición errónea de manera que introducimos una datos de mayor tamaño al soportado por la pila corrompiendo así las llamadas a procedimientos provocariamos un fallo en nuestro programa.
 
-```{.r}
+```{r}
 # Clase Stack
 Stack <- R6::R6Class(
   "Stack",
@@ -636,8 +755,9 @@ Stack <- R6::R6Class(
     }
   )
 )
-
+```
 # Ejemplo de uso de la pila
+```{R}
 mi_pila <- Stack$new()
 
 mi_pila$push("Primero")
@@ -660,15 +780,14 @@ while (!mi_pila$is_empty()) {
 }
 mi_pila$print()
 
-# Intentar pop en pila vacía (esto causará un error)
-# tryCatch({
-#   mi_pila$pop()
-# }, error = function(e) {
-#   message("Error al hacer pop en pila vacía: ", e$message)
-# })
+ # Intentar pop en pila vacía (esto causará un error)
+ # tryCatch({
+ #   mi_pila$pop()
+ # }, error = function(e) {
+ #   message("Error al hacer pop en pila vacía: ", e$message)
+ # })
 ```
 
----
 
 # Colas (Queues)
 
@@ -681,7 +800,7 @@ cabeza) de la lista.
 Los elementos se eliminan (se quitan) de la cola en el mismo orden en que se almacenan y, por consiguiente, una cola es una estructura de tipo FIFO (first-in-first-out, primero en entrar, Primero en salir o bien primero en llegar/primero en ser servido).
 Un ejemplo de esto son los servicion en los restaurantes o las filas en el banco.
 
-```{.r}
+```{r}
  #En el siguiente ejemplo se muesrta una
   # Crear una cola vacía
   cola <- list()
@@ -725,7 +844,7 @@ Un ejemplo de esto son los servicion en los restaurantes o las filas en el banco
 print(length(cola))
  # 2
 ```
----
+
 Las operaciones principales de una cola son:
 
 *   **Enqueue**: Añadir un elemento al final de la cola.
@@ -736,7 +855,7 @@ Las operaciones principales de una cola son:
 
 La implementación de una cola en R utilizando `vector` o `list` requiere un poco más de consideración que la pila. Añadir al final (`enqueue`) es eficiente. Sin embargo, eliminar del principio (`dequeue`) en un vector grande puede ser menos eficiente, ya que R tiene que "desplazar" todos los elementos restantes para llenar el hueco. Para colas de gran tamaño y operaciones frecuentes de `dequeue`, una implementación basada en una lista enlazada (o una estructura optimizada como `collections::deque` si está disponible) sería más performante. Para propósitos educativos y colas de tamaño moderado, la lista de R es suficiente.
 
-```{.r}
+```{r}
 # Clase Queue
 Queue <- R6::R6Class(
   "Queue",
@@ -791,7 +910,9 @@ Queue <- R6::R6Class(
     }
   )
 )
+```
 
+```{r}
 # Ejemplo de uso de la cola
 mi_cola <- Queue$new()
 
@@ -815,15 +936,15 @@ while (!mi_cola$is_empty()) {
 }
 mi_cola$print()
 
-# Intentar dequeue en cola vacía (esto causará un error)
-# tryCatch({
-#   mi_cola$dequeue()
-# }, error = function(e) {
-#   message("Error al hacer dequeue en cola vacía: ", e$message)
-# })
+ # Intentar dequeue en cola vacía (esto causará un error)
+ # tryCatch({
+ #   mi_cola$dequeue()
+ # }, error = function(e) {
+ #   message("Error al hacer dequeue en cola vacía: ", e$message)
+ # })
 ```
 
----
+
 # Aplicaciones en la vida real
 
 Las estructuras dinámicas son utilizadas diariamente en sistemas informáticos modernos.
@@ -835,7 +956,6 @@ Las estructuras dinámicas son utilizadas diariamente en sistemas informáticos 
 * Sistemas operativos usan listas circulares para administrar procesos.
 * Editores de texto usan listas dobles para deshacer y rehacer cambios.
 
----
 
 # Comparación de Complejidad
 
@@ -857,7 +977,6 @@ Donde:
 
 Las listas enlazadas requieren recorrer nodos para encontrar un elemento, mientras que las pilas y colas realizan operaciones en posiciones específicas, lo que mejora su rendimiento.
 
----
 
 # Conclusión
 

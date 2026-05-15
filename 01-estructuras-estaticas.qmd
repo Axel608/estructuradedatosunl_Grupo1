@@ -91,7 +91,7 @@ $Posición = DirecciónBase + (i \times N + j) \times TamañoDelDato$
 
 Esto garantiza que el acceso a cualquier celda de la matriz siga siendo una operación aritmética simple y, por tanto, mantenga un tiempo de acceso $\mathcal{O}(1)$.
 
-```python
+```{.r}
 # Ejemplo en Python usando listas por comprensión para simular
 # una matriz (comportamiento 2D) de 3x3 inicializada en 0:
 matriz = [[0 for _ in range(3)] for _ in range(3)]
