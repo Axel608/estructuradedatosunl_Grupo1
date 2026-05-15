@@ -4,17 +4,9 @@ title: "Estructuras Dinámicas"
 
 # Introducción a las Estructuras Dinámicas en R
 
-¡Hola! En este capítulo, nos sumergiremos en el fascinante mundo de las estructuras de datos dinámicas. A diferencia de las estructuras estáticas como los arrays (o vectores en R) que tienen un tamaño fijo una vez definidos, las estructuras dinámicas pueden crecer o encogerse durante la ejecución del programa, adaptándose a las necesidades cambiantes de los datos.
-
-R, con su enfoque en la manipulación de datos y su poderoso tipo `list`, nos ofrece una gran flexibilidad. Si bien muchas de estas estructuras dinámicas no tienen una implementación "nativa" y explícita como en lenguajes de bajo nivel (como C++ o Java), entender sus principios y cómo simularlas en R es fundamental para escribir código eficiente y estructurado, especialmente cuando se trabaja con datos que cambian de tamaño o cuando se necesita un control preciso sobre el orden de procesamiento.
-
-En este capítulo, exploraremos:
-
-*   **Listas Enlazadas**: Desde las simples hasta las dobles y circulares, comprenderemos cómo construir secuencias de elementos que no necesitan estar contiguos en memoria.
-*   **Pilas (Stacks)**: Una estructura "LIFO" (Last-In, First-Out) que es esencial para tareas como la gestión de funciones o la evaluación de expresiones.
-*   **Colas (Queues)**: Una estructura "FIFO" (First-In, First-Out) que simula líneas de espera y es crucial en escenarios de procesamiento ordenado.
-
-Prepárate para pensar en cómo R, con su flexibilidad, puede ayudarnos a construir estas abstracciones. Aunque a menudo podemos resolver muchos problemas usando los tipos `vector` o `list` directamente, comprender las estructuras dinámicas nos da una base sólida para elegir la herramienta correcta para cada tarea y apreciar la ingeniería detrás de las soluciones más complejas.
+Las estructuras dinámicas son formas especiales de organizar datos que tienen la ventaja de poder crecer o reducirse mientras el programa está funcionando. A diferencia de las estructuras estáticas, como los vectores o arrays, que tienen un tamaño fijo desde el inicio, las dinámicas se adaptan según la cantidad de información que necesitemos manejar. Esto es muy útil cuando no sabemos cuántos datos tendremos durante la ejecución de un programa. En R, este concepto se puede entender fácilmente gracias a las listas (list), que permiten almacenar distintos tipos de datos y modificarlos de manera flexible. Aunque R no maneja estas estructuras exactamente igual que lenguajes como C++ o Java, comprender cómo funcionan ayuda a desarrollar programas más organizados y eficientes.
+Para entenderlo mejor, podemos explicar esto con Pokémon. Las listas enlazadas funcionan como una cadena de Pokémon donde cada uno sabe quién viene después. Por ejemplo: Pikachu → Charmander → Squirtle → Bulbasaur. Cada Pokémon tiene información sobre sí mismo y además se guía al siguiente de la fila. En una lista doblemente enlazada, los Pokémon también saben quién está antes y quién está después, algo así como: Pichu ⇄ Pikachu ⇄ Raichu. Incluso existen listas circulares, donde el último Pokémon vuelve a conectarse con el primero en este caso son las evoluciones, formando un ciclo infinito, como en un torneo Pokémon que nunca termina.
+Otra estructura importante son las pilas o Stacks, que funcionan con la regla “el último en entrar es el primero en salir” (LIFO). Esto se puede comparar con una mochila de Pokéballs: si primero guardas una Pokéball roja, luego una Superball y después una ultraball, la primera que sacarás será la Ultraball porque fue la última en entrar. Finalmente, están las colas o Queues, que funcionan, al contrario, siguiendo la regla “el primero en entrar es el primero en salir” (FIFO). Un ejemplo sencillo sería la fila de entrenadores esperando en un Centro Pokémon: si Lapo llega primero, luego Anderson y después Jorge, el primero en ser atendido será Lapo. Gracias a estas estructuras dinámicas, los programas pueden manejar información de manera más flexible, ordenada y eficiente dependiendo de la situación.
 
 ---
 
